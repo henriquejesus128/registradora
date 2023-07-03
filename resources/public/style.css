@@ -1,5 +1,83 @@
-.teste {
+.titulo {
   font-size: 30px;
-  color: red;
+  color: white;
   text-align: center;
+  background-color: green;
+  border-radius: 5px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:1rem;
+  padding: 1rem;
+  background-color: #dcdcdc;
+}
+
+.texto {
+  width: max-content;
+  background-color: blue;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.div{
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+
+.registrar {
+  width: 100px;
+  padding: 10px;
+  color: white;
+  text-align: center;
+  background-color: green;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  :disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.input{
+  width: 100%;
+  border-radius: 5px;
+  border: double 1px black ;
+}
+
+.div-input{
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.main{
+  display: flex;
+  justify-content: center;
+  background-color: green;
+}
+
+#app{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: green;
+}
+
+.body{
+  background-color: green;
+}
+
+.div-botao{
+  display: flex;
+  justify-content: center;
 }

@@ -1,4 +1,4 @@
 (ns mini-registradora.db)
 
 (def default-db
-  {:name "re-frame"})
+  {:nome "registradora" :tipo "cdb"})
