@@ -16,3 +16,9 @@
  ::form-is-valid?
  (fn  [db [_ form-ids]]
    (let [_ (prn "is valid subs" (get-in db [:form :tipo]))] (every? #(get-in db [:form %])  form-ids))))
+
+
+(re-frame/reg-sub
+ ::db-tipo
+ (fn [db]
+   (:tipo db)))

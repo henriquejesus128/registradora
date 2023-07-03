@@ -16,6 +16,11 @@
    (assoc-in db [:form id] val)))
 
 (re-frame/reg-event-db
+ ::update-db
+ (fn [db [_ id val]]
+   (assoc db  id val)))
+
+(re-frame/reg-event-db
  ::save-form
  (fn [db]
    (let [form-data (:form db)
