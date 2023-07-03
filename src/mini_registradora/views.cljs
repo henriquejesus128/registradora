@@ -20,10 +20,30 @@
             }])
 
 (defn main-panel []
-  (let [is-valid? @(re-frame/subscribe [::subs/form-is-valid? []])
-
-        _ (prn  "valido ?" is-valid?)
-        ]
+  (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
+        chave-formulario (case tipo-ativo  "CDB" [:id-participante
+                                                  :cnpj-cpf
+                                                  :tipo-de-regime
+                                                  :data-de-emissao
+                                                  :data-de-vecimento
+                                                  :quantidade
+                                                  :valor-unitario-de-emissao
+                                                  :codigo-isin
+                                                  :local-de-emissao
+                                                  :emissao-municipio
+                                                  :emissao-uf
+                                                  :local-pagamento
+                                                  :pagamento-municipio
+                                                  :pagamento-uf
+                                                  :condicao-resgate-antecipado
+                                                  :vinculado
+                                                  :forma-pagamento
+                                                  :tipo-cdb
+                                                  :curvas
+                                                  :rentabilidade
+                                                  :taxa-flutuante
+                                                  :taxa-juros]  "" )
+        is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
      [:div
       [radio-input :tipo "CDB"]

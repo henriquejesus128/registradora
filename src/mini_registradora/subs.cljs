@@ -14,8 +14,8 @@
 
 (re-frame/reg-sub
  ::form-is-valid?
- (fn  [db [_ form-ids]]
-   (let [_ (prn "is valid subs" (get-in db [:form :tipo]))] (every? #(get-in db [:form %])  form-ids))))
+ (fn  [db [_ form-key]]
+    (every? #(get-in db [:form %])  form-key)))
 
 
 (re-frame/reg-sub
