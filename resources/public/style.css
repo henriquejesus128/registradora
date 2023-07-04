@@ -81,3 +81,14 @@
   display: flex;
   justify-content: center;
 }
+
+.titulo1 {
+  color: white;
+}
+
+
+.div-colum{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
