@@ -162,7 +162,7 @@
     [text-input :data-de-inicio "Data inicio" "date"]
     [text-input :data-de-vencimento "Data vencimento" "date"]]
    [:div.div-botao
-    [:button.registrar {:on-click #(re-frame/dispatch [::events/select-form])} "Consultar"]]])
+    [:button.registrar {:on-click #(re-frame/dispatch [::events/save-form])} "Consultar"]]])
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
@@ -234,14 +234,18 @@
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
      [:div.div-radio
-      [:h1.titulo1 "CDB"]
-      [radio-input :tipo "CDB"]
-      [:h1.titulo1 "SWAP"]
-      [radio-input :tipo "SWAP"]
-      [:h1.titulo1 "Participante"]
-      [radio-input :tipo "Participante"]
-      [:h1.titulo1 "Consulta"]
-      [radio-input :tipo "Consulta"]]
+      [:div.test1
+       [:h1.titulo1 "CDB"]
+       [radio-input :tipo "CDB"]]
+      [:div.test1
+       [:h1.titulo1 "SWAP"]
+       [radio-input :tipo "SWAP"]]
+      [:div.test1
+       [:h1.titulo1 "Participante"]
+       [radio-input :tipo "Participante"]]
+      [:div.test1
+       [:h1.titulo1 "Consulta"]
+       [radio-input :tipo "Consulta"]]]
 
      (case tipo-ativo
        "CDB" (ativo-cdb is-valid?)
