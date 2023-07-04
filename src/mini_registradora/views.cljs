@@ -156,17 +156,21 @@
                         :on-click #(re-frame/dispatch [::events/save-form])}
      "Registrar"]]])
 
-(defn consult-dados []
-  [:div.formulario
-   [:div.div-titulo
-    [:h1.titulo "Consulta dados"]]
-   [:div.div-input
-    [text-input :cnpj-participante "CNPJ do participante" "text"]
-    [text-input :id-ativo "ID Ativo" "text"]
-    [text-input :data-de-inicio "Data inicio" "date"]
-    [text-input :data-de-vencimento "Data vencimento" "date"]]
-   [:div.div-botao
-    [:button.registrar {:on-click #(re-frame/dispatch [::events/save-form])} "Consultar"]]])
+(defn consult-dados [is-valid?]
+  (let [dados (re-frame/subscribe [:consulta])]
+    [:div.formulario
+     [:div.div-titulo
+      [:h1.titulo "Consulta dados"]]
+     [:div.div-input
+      [text-input :cnpj-participante "CNPJ do participante" "text"]
+      [text-input :id-ativo "ID Ativo" "text"]
+      [text-input :data-de-inicio "Data inicio" "date"]
+      [text-input :data-de-vencimento "Data vencimento" "date"]]
+     [:div.div-botao
+      [:button.registrar {:disabled (not is-valid?)
+                          :on-click #(re-frame/dispatch [::events/save-form])} "Consultar"]]
+     [:div
+      @dados]]))
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
@@ -234,6 +238,10 @@
                                            :cep
                                            :uf
                                            :pais]
+                           "Consulta" [:cnpj-participante
+                                       :id-ativo
+                                       :data-de-inicio
+                                       :data-de-vencimento]
                            nil)
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
@@ -255,5 +263,5 @@
        "CDB" (ativo-cdb is-valid?)
        "SWAP" (ativo-swap is-valid?)
        "Participante" (registro-partipante is-valid?)
-       "Consulta" (consult-dados)
+       "Consulta" (consult-dados is-valid?)
        [:h1.titulo-mini-registradora "Mini-Registradora"])]))
