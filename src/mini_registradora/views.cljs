@@ -115,29 +115,35 @@
    [:h1.titulo "Registro do Participante"]
     [:div.div-input
      [text-input :cnpj-participante "CNPJ"]
-     [text-input :tipo-de-instituicao "Tipo de Instituição"]]
-   [text-input :setor-area "Setor Area"]
-   [text-input :razao-social "Razão Social"]
-   [text-input :nome-fantasia "Nome fantisia"]
-   [text-input :codigo-agregador "Codigo Agregador"]
-   [text-input :controle-acionario "Controle acionario"]
-   [text-input :origem-do-capital "Origem do Capital"]
-   [text-input :isencao-inscr-estadual "Isenção inscritura Estadual"]
-   [text-input :num-inscr-estadual "Numero inscritura Estadual"]
-   [text-input :isencao-inscr-municipal "Isenção inscritura Municipal"]
-   [text-input :num-inscr-municipal "Numero inscritur Municipal"]
-   [text-input :grupo-economico "Grupo Economico"]
-   [text-input :email "Email"]
-   [text-input :telefone "Telefone"]
-   [text-input :ramal "Ramal"]
-   [text-input :logradouro "Logradouro"]
-   [text-input :numero "Numero"]
-   [text-input :complemento "Complemento"]
-   [text-input :bairro "Bairro"]
-   [text-input :municipio "Municipio"]
-   [text-input :cep "CEP"]
-   [text-input :uf "UF"]
-   [text-input :pais "Pais"]
+     [text-input :tipo-de-instituicao "Tipo de Instituição"]
+     [text-input :setor-area "Setor Area"]]
+   [:div.div-input
+    [text-input :razao-social "Razão Social"]
+    [text-input :nome-fantasia "Nome fantisia"]
+    [text-input :codigo-agregador "Codigo Agregador"]]
+   [:div.div-input
+    [text-input :controle-acionario "Controle acionario"]
+    [text-input :origem-do-capital "Origem do Capital"]
+    [text-input :isencao-inscr-estadual "Isenção inscritura Estadual"]]
+   [:div.div-input
+    [text-input :num-inscr-estadual "Numero inscritura Estadual"]
+    [text-input :isencao-inscr-municipal "Isenção inscritura Municipal"]
+    [text-input :num-inscr-municipal "Numero inscritur Municipal"]]
+   [:div.div-input
+    [text-input :grupo-economico "Grupo Economico"]
+    [text-input :email "Email"]
+    [text-input :telefone "Telefone"]
+    [text-input :ramal "Ramal"]]
+   [:div.div-input
+    [text-input :logradouro "Logradouro"]
+    [text-input :numero "Numero"]
+    [text-input :complemento "Complemento"]]
+   [:div.div-input
+    [text-input :bairro "Bairro"]
+    [text-input :municipio "Municipio"]
+    [text-input :cep "CEP"]
+    [text-input :uf "UF"]
+    [text-input :pais "Pais"]]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/save-form])}
@@ -191,7 +197,7 @@
       [radio-input :tipo "CDB"]
       [:h1.titulo1 "SWAP"]
       [radio-input :tipo "SWAP"]]
-    ;;  (ativo-cdb is-valid?)
-     (registro-partipante is-valid?)
-    ;;  (ativo-swap is-valid?)
-     ]))
+     (case tipo-ativo "CDB"
+           (ativo-cdb is-valid?)
+           "SWAP" (ativo-swap is-valid?) "")
+     (registro-partipante is-valid?)]))
