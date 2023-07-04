@@ -221,13 +221,14 @@
                                            :pais] "")
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
-     [:div.div
+     [:div.div-radio
       [:h1.titulo1 "CDB"]
       [radio-input :tipo "CDB"]
       [:h1.titulo1 "SWAP"]
       [radio-input :tipo "SWAP"]
       [:h1.titulo1 "Participante"]
       [radio-input :tipo "Participante"]]
+
      (case tipo-ativo "CDB" (ativo-cdb is-valid?)
            "SWAP" (ativo-swap is-valid?)
-           "Participante" (registro-partipante is-valid?) "")]))
+           "Participante" (registro-partipante is-valid?) "" [:h1.titulo-mini-registradora "Mini-Registradora"])]))
