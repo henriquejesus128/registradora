@@ -4,6 +4,8 @@
   text-align: center;
   background-color: green;
   border-radius: 5px;
+  width: max-content;
+  padding: 0.3rem;
 }
 
 .formulario {
@@ -91,10 +93,9 @@
   justify-content: center;
 }
 
-.titulo1 {
+.titulo-menu {
   color: white;
 }
-
 
 .div-colum{
   display: flex;
@@ -109,11 +110,7 @@
   font-family: 'Times New Roman', Times, serif;
 }
 
-.test {
-  padding: 2rem 0;
-}
-
-.test1{
+.div-menu{
   background-color: blue;
   display: flex;
   align-items: center;
@@ -122,4 +119,10 @@
   gap: 1rem;
   padding: 0 10px;
   border-radius: 15px;
+}
+
+.div-titulo{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

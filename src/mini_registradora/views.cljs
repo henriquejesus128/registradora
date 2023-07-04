@@ -47,7 +47,8 @@
 
 (defn ativo-cdb [is-valid?]
   [:div.formulario
-   [:h1.titulo "Registro de CDB"]
+   [:div.div-titulo
+    [:h1.titulo "Registro de CDB"]]
    [:div.div-input
     [text-input :id-participante-cdb "ID Participante" "text"]
     [text-input :conta-cnpj-cpf "CNPJ/CPF" "text"]]
@@ -84,7 +85,8 @@
 
 (defn ativo-swap [is-valid?]
   [:div.formulario
-   [:h1.titulo "Registro de SWAP"]
+   [:div.div-titulo
+    [:h1.titulo "Registro de SWAP"]]
    [:div.div-input
     [text-input :id-participante-swap "ID Participante" "text"]
     (select-input :tipo-swap "Tipo" tipo-swap)
@@ -116,7 +118,8 @@
 
 (defn registro-partipante [is-valid?]
   [:div.formulario
-   [:h1.titulo "Registro do Participante"]
+   [:div.div-titulo
+    [:h1.titulo "Registro do Participante"]]
     [:div.div-input
      [text-input :cnpj-participante "CNPJ" "text"]
      [text-input :tipo-de-instituicao "Tipo de Instituição" "text"]
@@ -155,7 +158,8 @@
 
 (defn consult-dados []
   [:div.formulario
-   [:h1.titulo "Consulta dados"]
+   [:div.div-titulo
+    [:h1.titulo "Consulta dados"]]
    [:div.div-input
     [text-input :cnpj-participante "CNPJ do participante" "text"]
     [text-input :id-ativo "ID Ativo" "text"]
@@ -234,17 +238,17 @@
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
      [:div.div-radio
-      [:div.test1
-       [:h1.titulo1 "CDB"]
+      [:div.div-menu
+       [:h1.titulo-menu "CDB"]
        [radio-input :tipo "CDB"]]
-      [:div.test1
-       [:h1.titulo1 "SWAP"]
+      [:div.div-menu
+       [:h1.titulo-menu "SWAP"]
        [radio-input :tipo "SWAP"]]
-      [:div.test1
-       [:h1.titulo1 "Participante"]
+      [:div.div-menu
+       [:h1.titulo-menu "Participante"]
        [radio-input :tipo "Participante"]]
-      [:div.test1
-       [:h1.titulo1 "Consulta"]
+      [:div.div-menu
+       [:h1.titulo-menu "Consulta"]
        [radio-input :tipo "Consulta"]]]
 
      (case tipo-ativo
