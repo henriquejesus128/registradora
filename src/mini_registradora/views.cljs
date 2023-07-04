@@ -48,7 +48,7 @@
   [:div.formulario
    [:h1.titulo "Registro de CDB"]
    [:div.div-input
-    [text-input :id-participante "ID Participante"]
+    [text-input :id-participante-cdb "ID Participante"]
     [text-input :conta-cnpj-cpf "CNPJ/CPF"]]
    [:div.div-input
     [text-input :tipo-de-regime "Tipo de Regime"]
@@ -85,7 +85,7 @@
   [:div.formulario
    [:h1.titulo "Registro de SWAP"]
    [:div.div-input
-    [text-input :id-participante "ID Participante"]
+    [text-input :id-participante-swap "ID Participante"]
     (select-input :tipo-swap "Tipo" tipo-swap)
     [text-input :tipo-pagamento "Tipo pagamento"]]
    [:div.div-input
@@ -108,6 +108,36 @@
     [text-input :curva-vendedor "Curva vendedor"]]
    [:div.div-input
     [text-input :caracteristicas-contrato "Caracteristicas do contrato"]]
+   ])
+
+(defn registro-partipante [is-valid?]
+  [:div.formulario
+   [:h1.titulo "Registro do Participante"]
+    [:div.div-input
+     [text-input :cnpj-participante "CNPJ"]
+     [text-input :tipo-de-instituicao "Tipo de Instituição"]]
+   [text-input :setor-area "Setor Area"]
+   [text-input :razao-social "Razão Social"]
+   [text-input :nome-fantasia "Nome fantisia"]
+   [text-input :codigo-agregador "Codigo Agregador"]
+   [text-input :controle-acionario "Controle acionario"]
+   [text-input :origem-do-capital "Origem do Capital"]
+   [text-input :isencao-inscr-estadual "Isenção inscritura Estadual"]
+   [text-input :num-inscr-estadual "Numero inscritura Estadual"]
+   [text-input :isencao-inscr-municipal "Isenção inscritura Municipal"]
+   [text-input :num-inscr-municipal "Numero inscritur Municipal"]
+   [text-input :grupo-economico "Grupo Economico"]
+   [text-input :email "Email"]
+   [text-input :telefone "Telefone"]
+   [text-input :ramal "Ramal"]
+   [text-input :logradouro "Logradouro"]
+   [text-input :numero "Numero"]
+   [text-input :complemento "Complemento"]
+   [text-input :bairro "Bairro"]
+   [text-input :municipio "Municipio"]
+   [text-input :cep "CEP"]
+   [text-input :uf "UF"]
+   [text-input :pais "Pais"]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/save-form])}
@@ -115,7 +145,7 @@
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
-        chave-formulario (case tipo-ativo  "CDB" [:id-participante
+        chave-formulario (case tipo-ativo  "CDB" [:id-participante-cdb
                                                   :conta-cnpj-cpf
                                                   :tipo-de-regime
                                                   :data-de-emissao
@@ -136,7 +166,7 @@
                                                   :rentabilidade
                                                   :taxa-flutuante
                                                   :taxa-juros]
-                                          "SWAP" [:id-participante
+                                          "SWAP" [:id-participante-swap
                                                   :tipo-swap
                                                   :tipo-pagamento
                                                   :cnpj-comprador
@@ -161,6 +191,7 @@
       [radio-input :tipo "CDB"]
       [:h1.titulo1 "SWAP"]
       [radio-input :tipo "SWAP"]]
-     (ativo-cdb is-valid?)
+    ;;  (ativo-cdb is-valid?)
+     (registro-partipante is-valid?)
     ;;  (ativo-swap is-valid?)
      ]))

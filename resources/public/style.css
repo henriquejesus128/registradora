@@ -58,8 +58,8 @@
 }
 
 .main{
+  height: 100vh;
   display: flex;
-  justify-content: center;
   background-color: green;
 }
 
@@ -68,13 +68,13 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: green;
 }
 
 .body{
   background-color: green;
+  height: 100vh;
 }
 
 .div-botao{
