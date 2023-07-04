@@ -93,7 +93,7 @@
     [text-input :cnpj-comprador "CNPJ comprador"]
     [text-input :cnpj-vendedor "CNPJ vendedor"]
     [text-input :data-de-inicio "Data Inicio"]
-    [text-input :data-de-vecimento "Data de Vencimento"]]
+    [text-input :data-de-vencimento "Data de Vencimento"]]
    [:div.div-input
     [text-input :valor-base "Valor base"]
     [text-input :adesao-contrato "Adesao contrato"]]
@@ -163,7 +163,7 @@
                                   :data-de-vecimento
                                   :valor-unitario-de-emissao
                                   :codigo-isin
-                                  :local-emissao
+                                  :local-de-emissao
                                   :municipio-emissao
                                   :uf-local-emissao
                                   :local-pagamento
@@ -183,7 +183,7 @@
                                    :cnpj-comprador
                                    :cnpj-vendedor
                                    :data-de-inicio
-                                   :data-vencimento
+                                   :data-de-vencimento
                                    :valor-base
                                    :adesao-contrato
                                    :percentual-comprador
@@ -218,7 +218,8 @@
                                            :municipio
                                            :cep
                                            :uf
-                                           :pais] "")
+                                           :pais]
+                           nil)
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
      [:div.div-radio
@@ -229,6 +230,8 @@
       [:h1.titulo1 "Participante"]
       [radio-input :tipo "Participante"]]
 
-     (case tipo-ativo "CDB" (ativo-cdb is-valid?)
-           "SWAP" (ativo-swap is-valid?)
-           "Participante" (registro-partipante is-valid?) "" [:h1.titulo-mini-registradora "Mini-Registradora"])]))
+     (case tipo-ativo
+       "CDB" (ativo-cdb is-valid?)
+       "SWAP" (ativo-swap is-valid?)
+       "Participante" (registro-partipante is-valid?)
+       [:h1.titulo-mini-registradora "Mini-Registradora"])]))
