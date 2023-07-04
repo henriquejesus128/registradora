@@ -19,7 +19,7 @@
    [:input {:type "radio"
             :value valor
             :checked (= @(re-frame/subscribe [::subs/db-tipo]) valor)
-            :on-change #(re-frame/dispatch [::events/update-db id (-> % .-target .-value)])}])
+            :on-change #(re-frame/dispatch [::events/update-db id (-> % .-target .-value)]) }])
 
 (defn radio-input-curvas [id valor1 valor2 texto]
   [:div.div
@@ -42,6 +42,7 @@
     [:div.div
      [:label.texto texto]
       [:select.form-control {:value value :on-change #(re-frame/dispatch [::events/update-form id (-> % .-target .-value)])}
+       [:option {:value ""} "Selecione o tipo"]
        (map (fn [o] [:option {:key o :value o} o]) opcoes)]]))
 
 (defn ativo-cdb [is-valid?]
@@ -71,7 +72,7 @@
     [text-input :forma-pagamento "Forma de pagamento"]]
    [:div.div-input
     (select-input :tipo-cdb "Tipo" tipo-cdb)
-    (radio-input-curvas ::multiplas_curvas "2" "3" "Multiplas Curvas")]
+    (radio-input-curvas :multiplas-curvas "2" "3" "Multiplas Curvas")]
    [:div.div-input
     [text-input :rentabilidade "Rentabilidade do indexador de taxa flutuante"]
     [text-input :taxa-flutuante "Taxa Flutuante"]
@@ -108,7 +109,10 @@
     [text-input :curva-vendedor "Curva vendedor"]]
    [:div.div-input
     [text-input :caracteristicas-contrato "Caracteristicas do contrato"]]
-   ])
+   [:div.div-botao
+    [:button.registrar {:disabled (not is-valid?)
+                        :on-click #(re-frame/dispatch [::events/save-form])}
+     "Registrar"]]])
 
 (defn registro-partipante [is-valid?]
   [:div.formulario
@@ -151,53 +155,79 @@
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
-        chave-formulario (case tipo-ativo  "CDB" [:id-participante-cdb
-                                                  :conta-cnpj-cpf
-                                                  :tipo-de-regime
-                                                  :data-de-emissao
-                                                  :data-de-vecimento
-                                                  :valor-unitario-de-emissao
-                                                  :codigo-isin
-                                                  :local-emissao
-                                                  :municipio-emissao
-                                                  :uf-local-emissao
-                                                  :local-pagamento
-                                                  :municipio-pagamento
-                                                  :uf-local-pagamento
-                                                  :cond-resgate-antecipado
-                                                  :vinculado
-                                                  :forma-pagamento
-                                                  :tipo-cdb
-                                                  :multiplas-curvas
-                                                  :rentabilidade
-                                                  :taxa-flutuante
-                                                  :taxa-juros]
-                                          "SWAP" [:id-participante-swap
-                                                  :tipo-swap
-                                                  :tipo-pagamento
-                                                  :cnpj-comprador
-                                                  :cnpj-vendedor
-                                                  :data-de-inicio
-                                                  :data-vencimento
-                                                  :valor-base
-                                                  :adesao-contrato
-                                                  :percentual-comprador
-                                                  :categoria-comprador
-                                                  :juros-comprador
-                                                  :curva-comprador
-                                                  :percentual-vendedor
-                                                  :categoria-vendedor
-                                                  :juros-vendedor
-                                                  :curva-vendedor
-                                                  :caracteristicas-contrato] "")
+        chave-formulario (case tipo-ativo
+                           "CDB" [:id-participante-cdb
+                                  :conta-cnpj-cpf
+                                  :tipo-de-regime
+                                  :data-de-emissao
+                                  :data-de-vecimento
+                                  :valor-unitario-de-emissao
+                                  :codigo-isin
+                                  :local-emissao
+                                  :municipio-emissao
+                                  :uf-local-emissao
+                                  :local-pagamento
+                                  :municipio-pagamento
+                                  :uf-local-pagamento
+                                  :cond-resgate-antecipado
+                                  :vinculado
+                                  :forma-pagamento
+                                  :tipo-cdb
+                                  :multiplas-curvas
+                                  :rentabilidade
+                                  :taxa-flutuante
+                                  :taxa-juros]
+                           "SWAP" [:id-participante-swap
+                                   :tipo-swap
+                                   :tipo-pagamento
+                                   :cnpj-comprador
+                                   :cnpj-vendedor
+                                   :data-de-inicio
+                                   :data-vencimento
+                                   :valor-base
+                                   :adesao-contrato
+                                   :percentual-comprador
+                                   :categoria-comprador
+                                   :juros-comprador
+                                   :curva-comprador
+                                   :percentual-vendedor
+                                   :categoria-vendedor
+                                   :juros-vendedor
+                                   :curva-vendedor
+                                   :caracteristicas-contrato]
+                           "Participante" [:cnpj-participante
+                                           :tipo-de-instituicao
+                                           :setor-area
+                                           :razao-social
+                                           :nome-fantasia
+                                           :codigo-agregador
+                                           :controle-acionario
+                                           :origem-do-capital
+                                           :isencao-inscr-estadual
+                                           :num-inscr-estadual
+                                           :isencao-inscr-municipal
+                                           :num-inscr-municipal
+                                           :grupo-economico
+                                           :email
+                                           :telefone
+                                           :ramal
+                                           :logradouro
+                                           :numero
+                                           :complemento
+                                           :bairro
+                                           :municipio
+                                           :cep
+                                           :uf
+                                           :pais] "")
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
      [:div.div
       [:h1.titulo1 "CDB"]
       [radio-input :tipo "CDB"]
       [:h1.titulo1 "SWAP"]
-      [radio-input :tipo "SWAP"]]
-     (case tipo-ativo "CDB"
-           (ativo-cdb is-valid?)
-           "SWAP" (ativo-swap is-valid?) "")
-     (registro-partipante is-valid?)]))
+      [radio-input :tipo "SWAP"]
+      [:h1.titulo1 "Participante"]
+      [radio-input :tipo "Participante"]]
+     (case tipo-ativo "CDB" (ativo-cdb is-valid?)
+           "SWAP" (ativo-swap is-valid?)
+           "Participante" (registro-partipante is-valid?) "")]))

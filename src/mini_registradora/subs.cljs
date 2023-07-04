@@ -9,8 +9,8 @@
 
 (re-frame/reg-sub
  ::form-curvas
- (fn  [db [_ value]]
-   (get-in db [:form value] "")))
+ (fn  [db]
+   (get-in db [:form :multiplas-curvas ] "")))
 
 (re-frame/reg-sub
  ::form-is-valid?

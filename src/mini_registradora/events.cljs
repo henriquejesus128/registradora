@@ -18,7 +18,7 @@
 (re-frame/reg-event-db
  ::update-db
  (fn [db [_ id val]]
-   (assoc db  id val)))
+   (assoc (dissoc db :form)  id val)))
 
 (re-frame/reg-event-db
  ::save-form
@@ -30,3 +30,8 @@
  (-> db
      (assoc :atributos update-atributos)
      (dissoc :form)))))
+
+;; (re-frame/reg-event-db
+;;  ::reset-form
+;;  (fn [db]
+;;    (dissoc db :form)))

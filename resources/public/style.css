@@ -60,7 +60,7 @@
 .main{
   height: 100vh;
   display: flex;
-  background-color: green;
+  background-color:#c9c9c9;
 }
 
 #app{
@@ -69,11 +69,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: green;
+  background-color: #c9c9c9;
 }
 
 .body{
-  background-color: green;
+  background-color:#c9c9c9;
   height: 100vh;
 }
 
