@@ -30,11 +30,10 @@
      (assoc :atributos update-atributos)
      (dissoc :form)))))
 
-;; (re-frame/reg-event-db
-;;  ::select-form
-;;  (fn [db [data-json]]
-;;    (let [form-data (:form db)
-;;          atributos (get data-json :form [])
-;;          update-atributos (conj atributos form-data)]
-;;      (-> db
-;;          (assoc :form update-atributos)))))
+(re-frame/reg-event-db
+ ::consulta-form
+ (fn [db [data-json]]
+   (let [form-data (:form db)
+         update-atributos (conj data-json form-data)]
+     (-> db
+         (assoc :form update-atributos)))))

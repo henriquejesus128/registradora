@@ -168,9 +168,8 @@
       [text-input :data-de-vencimento "Data vencimento" "date"]]
      [:div.div-botao
       [:button.registrar {:disabled (not is-valid?)
-                          :on-click #(re-frame/dispatch [::events/save-form])} "Consultar"]]
-     [:div
-      @dados]]))
+                          :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]
+     ]))
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])

@@ -21,8 +21,3 @@
  ::db-tipo
  (fn [db]
    (:tipo db)))
-
-(re-frame/reg-sub
- :consulta
- (fn [db]
-   (get-in db [:consulta] nil)))
