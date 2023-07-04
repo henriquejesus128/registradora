@@ -107,3 +107,7 @@
   font-weight: bold;
   font-family: 'Times New Roman', Times, serif;
 }
+
+.test {
+  padding: 2rem 0;
+}
