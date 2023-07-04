@@ -130,12 +130,12 @@
     [text-input :origem-do-capital "Origem do Capital"]
     [text-input :isencao-inscr-estadual "Isenção inscritura Estadual"]]
    [:div.div-input
-    [text-input :num-inscr-estadual "Numero inscritura Estadual"]
+    [text-input :num-inscr-estadual "Inscrição Estadual"]
     [text-input :isencao-inscr-municipal "Isenção inscritura Municipal"]
-    [text-input :num-inscr-municipal "Numero inscritur Municipal"]]
+    [text-input :num-inscr-municipal "Inscrição Municipal"]]
    [:div.div-input
     [text-input :grupo-economico "Grupo Economico"]
-    [text-input :email "Email"]
+    [text-input :email "E-mail"]
     [text-input :telefone "Telefone"]
     [text-input :ramal "Ramal"]]
    [:div.div-input

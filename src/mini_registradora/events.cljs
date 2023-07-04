@@ -24,14 +24,17 @@
  ::save-form
  (fn [db]
    (let [form-data (:form db)
-         atributos (get db :atributos [] )
-         update-atributos (conj atributos form-data)
-         _ (prn "form-data?" form-data)]
+         atributos (get db :atributos [])
+         update-atributos (conj atributos form-data)]
  (-> db
      (assoc :atributos update-atributos)
      (dissoc :form)))))
 
-;; (re-frame/reg-event-db
-;;  ::reset-form
-;;  (fn [db]
-;;    (dissoc db :form)))
+(re-frame/reg-event-db
+ ::select-form
+ (fn [db [data-json]]
+   (let [form-data (:form db)
+         atributos (get data-json :form [])
+         update-atributos (conj atributos form-data)]
+     (-> db
+         (assoc :form update-atributos)))))
