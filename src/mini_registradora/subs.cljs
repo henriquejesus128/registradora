@@ -17,12 +17,10 @@
  (fn  [db [_ form-key]]
     (every? #(get-in db [:form %])  form-key)))
 
-
 (re-frame/reg-sub
  ::db-tipo
  (fn [db]
    (:tipo db)))
-
 
 (re-frame/reg-sub
  :consulta
