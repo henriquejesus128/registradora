@@ -29,13 +29,13 @@
     [:input {:type "radio"
              :value valor1
              :checked (= @(re-frame/subscribe [::subs/form-curvas]) valor1)
-             :on-change #(re-frame/dispatch [::events/update-db id (-> % .-target .-value)])}]]
+             :on-change #(re-frame/dispatch [::events/update-form id (-> % .-target .-value)])}]]
    [:div.div-colum
     [:label valor2]
     [:input {:type "radio"
              :value valor2
              :checked (= @(re-frame/subscribe [::subs/form-curvas]) valor2)
-             :on-change #(re-frame/dispatch [::events/update-db id (-> % .-target .-value)])}]]])
+             :on-change #(re-frame/dispatch [::events/update-form id (-> % .-target .-value)])}]]])
 
 (defn select-input [id  texto opcoes]
   (let [value @(re-frame/subscribe [::subs/form id])]
@@ -135,7 +135,25 @@
                                                   :multiplas-curvas
                                                   :rentabilidade
                                                   :taxa-flutuante
-                                                  :taxa-juros]  "" )
+                                                  :taxa-juros]
+                                          "SWAP" [:id-participante
+                                                  :tipo-swap
+                                                  :tipo-pagamento
+                                                  :cnpj-comprador
+                                                  :cnpj-vendedor
+                                                  :data-de-inicio
+                                                  :data-vencimento
+                                                  :valor-base
+                                                  :adesao-contrato
+                                                  :percentual-comprador
+                                                  :categoria-comprador
+                                                  :juros-comprador
+                                                  :curva-comprador
+                                                  :percentual-vendedor
+                                                  :categoria-vendedor
+                                                  :juros-vendedor
+                                                  :curva-vendedor
+                                                  :caracteristicas-contrato] "")
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
      [:div.div
@@ -144,5 +162,5 @@
       [:h1.titulo1 "SWAP"]
       [radio-input :tipo "SWAP"]]
      (ativo-cdb is-valid?)
-     (ativo-swap is-valid?)]
-    ))
+    ;;  (ativo-swap is-valid?)
+     ]))
