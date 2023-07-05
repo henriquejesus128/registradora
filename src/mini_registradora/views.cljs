@@ -51,16 +51,16 @@
     [:h1.titulo "Registro de CDB"]]
    [:div.div-input
     [text-input :id-participante-cdb "ID Participante" "text"]
-    [text-input :conta-cnpj-cpf "CNPJ/CPF" "text"]]
+    [text-input :conta-cpf-cnpj "CNPJ/CPF" "text"]]
    [:div.div-input
-    [text-input :tipo-de-regime "Tipo de Regime" "text"]
-    [text-input :data-de-emissao "Data de Emissão" "date"]
-    [text-input :data-de-vecimento "Data de Vencimento" "date"]]
+    [text-input :tipo-regime "Tipo de Regime" "text"]
+    [text-input :data-emissao "Data de Emissão" "date"]
+    [text-input :data-vecimento "Data de Vencimento" "date"]]
    [:div.div-input
-    [text-input :valor-unitario-de-emissao "Valor Unitario de Emissão" "text"]
+    [text-input :valor-unitario-emissao "Valor Unitario de Emissão" "double"]
     [text-input :codigo-isin "Codigo ISIN" "text"]]
    [:div.div-input
-    [text-input :local-de-emissao "Local de Emissão" "text"]
+    [text-input :local-emissao "Local de Emissão" "text"]
     [text-input :municipio-emissao "Municipio" "text"]
     [text-input :uf-local-emissao "UF" "text"]]
    [:div.div-input
@@ -69,15 +69,15 @@
     [text-input :uf-local-pagamento "UF" "text"]]
    [:div.div-input
     [text-input :cond-resgate-antecipado "Condição de Resgate Antecipado" "text"]
-    [text-input :vinculado "Vinculado" "text"]
+    [text-input :vinculado "Vinculado" "boolean"]
     [text-input :forma-pagamento "Forma de pagamento" "text"]]
    [:div.div-input
     (select-input :tipo-cdb "Tipo" tipo-cdb)
     (radio-input-curvas :multiplas-curvas "2" "3" "Multiplas Curvas")]
    [:div.div-input
-    [text-input :rentabilidade "Rentabilidade do indexador de taxa flutuante" "text"]
+    [text-input :rentabilidade-ind-tx-flut "Rentabilidade do indexador de taxa flutuante" "text"]
     [text-input :taxa-flutuante "Taxa Flutuante" "text"]
-    [text-input :taxa-juros "Taxa de Juros" "text"]]
+    [text-input :taxa-juros-spread "Taxa de Juros" "text"]]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/save-form])}
@@ -175,13 +175,13 @@
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
         chave-formulario (case tipo-ativo
                            "CDB" [:id-participante-cdb
-                                  :conta-cnpj-cpf
-                                  :tipo-de-regime
-                                  :data-de-emissao
-                                  :data-de-vecimento
-                                  :valor-unitario-de-emissao
+                                  :conta-cpf-cnpj
+                                  :tipo-regime
+                                  :data-emissao
+                                  :data-vecimento
+                                  :valor-unitario-emissao
                                   :codigo-isin
-                                  :local-de-emissao
+                                  :local-emissao
                                   :municipio-emissao
                                   :uf-local-emissao
                                   :local-pagamento
@@ -191,10 +191,10 @@
                                   :vinculado
                                   :forma-pagamento
                                   :tipo-cdb
-                                  :multiplas-curvas
-                                  :rentabilidade
+          boolean                :multiplas-curvas
+                                  :rentabilidade-ind-tx-flut
                                   :taxa-flutuante
-                                  :taxa-juros]
+                                  :taxa-juros-spread]
                            "SWAP" [:id-participante-swap
                                    :tipo-swap
                                    :tipo-pagamento
