@@ -94,20 +94,20 @@
    [:div.div-input
     [text-input :cnpj-comprador "CNPJ comprador" "text"]
     [text-input :cnpj-vendedor "CNPJ vendedor" "text"]
-    [text-input :data-de-inicio "Data Inicio" "date"]
-    [text-input :data-de-vencimento "Data de Vencimento" "date"]]
+    [text-input :data-inicio "Data Inicio" "date"]
+    [text-input :data-vencimento "Data de Vencimento" "date"]]
    [:div.div-input
-    [text-input :valor-base "Valor base" "text"]
+    [text-input :valor-base "Valor base" "double"]
     [text-input :adesao-contrato "Adesao contrato" "text"]]
    [:div.div-input
-    [text-input :percentual-comprador "Percentual comprador" "text"]
+    [text-input :percentual-comprador "Percentual comprador" "double"]
     [text-input :categoria-comprador "Categoria comprador" "text"]
-    [text-input :juros-comprador "Juros comprador" "text"]
+    [text-input :juros-comprador "Juros comprador" "double"]
     [text-input :curva-comprador "Curva comprador" "text"]]
    [:div.div-input
-    [text-input :percentual-vendedor "Percentual vendedor" "text"]
+    [text-input :percentual-vendedor "Percentual vendedor" "double"]
     [text-input :categoria-vendedor "Categoria vendedor" "text"]
-    [text-input :juros-vendedor "Juros vendedor" "text"]
+    [text-input :juros-vendedor "Juros vendedor" "double"]
     [text-input :curva-vendedor "Curva vendedor" "text"]]
    [:div.div-input
     [text-input :caracteristicas-contrato "Caracteristicas do contrato" "text"]]
@@ -157,19 +157,18 @@
      "Registrar"]]])
 
 (defn consult-dados [is-valid?]
-  (let [dados (re-frame/subscribe [:consulta])]
     [:div.formulario
      [:div.div-titulo
       [:h1.titulo "Consulta dados"]]
      [:div.div-input
       [text-input :cnpj-participante "CNPJ do participante" "text"]
       [text-input :id-ativo "ID Ativo" "text"]
-      [text-input :data-de-inicio "Data inicio" "date"]
-      [text-input :data-de-vencimento "Data vencimento" "date"]]
+      [text-input :data-inicio "Data inicio" "date"]
+      [text-input :data-vencimento "Data vencimento" "date"]]
      [:div.div-botao
       [:button.registrar {:disabled (not is-valid?)
                           :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]
-     ]))
+     ])
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
@@ -200,8 +199,8 @@
                                    :tipo-pagamento
                                    :cnpj-comprador
                                    :cnpj-vendedor
-                                   :data-de-inicio
-                                   :data-de-vencimento
+                                   :data-inicio
+                                   :data-vencimento
                                    :valor-base
                                    :adesao-contrato
                                    :percentual-comprador
@@ -239,8 +238,8 @@
                                            :pais]
                            "Consulta" [:cnpj-participante
                                        :id-ativo
-                                       :data-de-inicio
-                                       :data-de-vencimento]
+                                       :data-inicio
+                                       :data-vencimento]
                            nil)
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
