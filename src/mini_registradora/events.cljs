@@ -24,10 +24,10 @@
  ::save-form
  (fn [db]
    (let [form-data (:form db)
-         atributos (get db :atributos [])
+         atributos (get db :api [])
          update-atributos (conj atributos form-data)]
  (-> db
-     (assoc :atributos update-atributos)
+     (assoc :api update-atributos)
      (dissoc :form)))))
 
 (re-frame/reg-event-db
