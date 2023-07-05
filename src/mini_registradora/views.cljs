@@ -76,8 +76,8 @@
     (radio-input-curvas :multiplas-curvas "2" "3" "Multiplas Curvas")]
    [:div.div-input
     [text-input :rentabilidade-ind-tx-flut "Rentabilidade do indexador de taxa flutuante" "text"]
-    [text-input :taxa-flutuante "Taxa Flutuante" "text"]
-    [text-input :taxa-juros-spread "Taxa de Juros" "text"]]
+    [text-input :taxa-flutuante "Taxa Flutuante" "double"]
+    [text-input :taxa-juros-spread "Taxa de Juros" "double"]]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/save-form])}
@@ -191,7 +191,7 @@
                                   :vinculado
                                   :forma-pagamento
                                   :tipo-cdb
-          boolean                :multiplas-curvas
+                                  :multiplas-curvas
                                   :rentabilidade-ind-tx-flut
                                   :taxa-flutuante
                                   :taxa-juros-spread]
