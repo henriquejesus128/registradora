@@ -157,18 +157,17 @@
      "Registrar"]]])
 
 (defn consult-dados [is-valid?]
-    [:div.formulario
-     [:div.div-titulo
-      [:h1.titulo "Consulta dados"]]
-     [:div.div-input
-      [text-input :cnpj-participante "CNPJ do participante" "text"]
-      [text-input :id-ativo "ID Ativo" "text"]
-      [text-input :data-inicio "Data inicio" "date"]
-      [text-input :data-vencimento "Data vencimento" "date"]]
-     [:div.div-botao
-      [:button.registrar {:disabled (not is-valid?)
-                          :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]
-     ])
+  [:div.formulario
+   [:div.div-titulo
+    [:h1.titulo "Consulta dados"]]
+   [:div.div-input
+    [text-input :cnpj-participante "CNPJ do participante" "text"]
+    [text-input :id-ativo "ID Ativo" "text"]
+    [text-input :data-inicio "Data inicio" "date"]
+    [text-input :data-vencimento "Data vencimento" "date"]]
+   [:div.div-botao
+    [:button.registrar {:disabled (not is-valid?)
+                        :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]])
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
