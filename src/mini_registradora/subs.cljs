@@ -30,4 +30,5 @@
 (re-frame/reg-sub
  ::db-consulta
  (fn [db]
-   (get-in db [:consulta :consulta])))
+   (let [chave (get db :tela-consulta) ]
+   (get-in db [:consulta (keyword chave)]))))
