@@ -24,7 +24,7 @@
  ::save-form
  (fn [db]
    (let [form-data (:form db)
-         atributos (get db :api [])
+         atributos (get db :api {})
          update-atributos (conj atributos form-data)]
  (-> db
      (assoc :api update-atributos)

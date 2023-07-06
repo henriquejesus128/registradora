@@ -7,10 +7,10 @@
 (def tipo-cdb ["Multiplas curvas"])
 (def tipo-swap ["Taxa de juros"])
 
-(defn text-input [id label tipo]
+(defn text-input [id texto tipo]
   (let [value @(re-frame/subscribe [::subs/form id])]
      [:div.div
-      [:label.texto label]
+      [:label.texto texto]
       [:input.input {:value value
                :on-change #(re-frame/dispatch [::events/update-form id (-> % .-target .-value)])
                :type tipo}]]))
