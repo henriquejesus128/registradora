@@ -10,7 +10,7 @@
 (re-frame/reg-sub
  ::form-curvas
  (fn  [db]
-   (get-in db [:form :multiplas-curvas ] nil)))
+   (get-in db [:form :multiplas_curvas ] nil)))
 
 (re-frame/reg-sub
  ::form-is-valid?
@@ -21,3 +21,8 @@
  ::db-tipo
  (fn [db]
    (:tipo db)))
+
+(re-frame/reg-sub
+ ::db-consulta
+ (fn [db]
+   (:consulta db)))

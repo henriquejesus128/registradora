@@ -39,6 +39,7 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 }
 
 .registrar {
@@ -50,10 +51,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  :disabled{
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
 }
 
 .input{
@@ -125,4 +122,34 @@
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.tabela{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.linha-coluna{
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.coluna {
+  background-color: #f2f2f2;
+}
+.linha:nth-child(even){
+  background-color: #f9f9f9;
+}
+
+.botao-consulta {
+  width: 100px;
+  padding: 1rem;
+  color: white;
+  text-align: center;
+  background-color: blue;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

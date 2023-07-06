@@ -24,11 +24,11 @@
  ::save-form
  (fn [db]
    (let [form-data (:form db)
-         atributos (get db :api {})
-         update-atributos (conj atributos form-data)]
- (-> db
-     (assoc :api update-atributos)
-     (dissoc :form)))))
+         chave (get db :tipo)]
+     (prn (keyword chave) "keyword")
+     (-> db
+         (assoc-in [:cadastro (keyword chave)] form-data)
+         (dissoc :form)))))
 
 (re-frame/reg-event-db
  ::consulta-form

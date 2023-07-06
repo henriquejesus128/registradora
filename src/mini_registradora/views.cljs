@@ -50,34 +50,34 @@
    [:div.div-titulo
     [:h1.titulo "Registro de CDB"]]
    [:div.div-input
-    [text-input :id-participante-cdb "ID Participante" "text"]
-    [text-input :conta-cpf-cnpj "CNPJ/CPF" "text"]]
+    [text-input :id_participante "ID Participante" "text"]
+    [text-input :conta_cpf_cnpj "CNPJ/CPF" "text"]]
    [:div.div-input
-    [text-input :tipo-regime "Tipo de Regime" "text"]
-    [text-input :data-emissao "Data de Emissão" "date"]
-    [text-input :data-vecimento "Data de Vencimento" "date"]]
+    [text-input :tipo_regime "Tipo de Regime" "text"]
+    [text-input :data_emissao "Data de Emissão" "date"]
+    [text-input  :data_vencimento "Data de Vencimento" "date"]]
    [:div.div-input
-    [text-input :valor-unitario-emissao "Valor Unitario de Emissão" "double"]
-    [text-input :codigo-isin "Codigo ISIN" "text"]]
+    [text-input :valor_unitario_emissao "Valor Unitario de Emissão" "double"]
+    [text-input :codigo_isin "Codigo ISIN" "text"]]
    [:div.div-input
-    [text-input :local-emissao "Local de Emissão" "text"]
-    [text-input :municipio-emissao "Municipio" "text"]
-    [text-input :uf-local-emissao "UF" "text"]]
+    [text-input :local_emissao "Local de Emissão" "text"]
+    [text-input :municipio_emissao "Municipio" "text"]
+    [text-input :uf_local_emissao "UF" "text"]]
    [:div.div-input
-    [text-input :local-pagamento "Local de Pagamento" "text"]
-    [text-input :municipio-pagamento "Municipio" "text"]
-    [text-input :uf-local-pagamento "UF" "text"]]
+    [text-input :local_pagamento "Local de Pagamento" "text"]
+    [text-input :municipio_pagamento "Municipio" "text"]
+    [text-input :uf_local_pagamento "UF" "text"]]
    [:div.div-input
-    [text-input :cond-resgate-antecipado "Condição de Resgate Antecipado" "text"]
+    [text-input :cond_resgate_antecipado "Condição de Resgate Antecipado" "text"]
     [text-input :vinculado "Vinculado" "boolean"]
-    [text-input :forma-pagamento "Forma de pagamento" "text"]]
+    [text-input  :forma_pagamento "Forma de pagamento" "text"]]
    [:div.div-input
     (select-input :tipo-cdb "Tipo" tipo-cdb)
-    (radio-input-curvas :multiplas-curvas "2" "3" "Multiplas Curvas")]
+    (radio-input-curvas :multiplas_curvas "2" "3" "Multiplas Curvas")]
    [:div.div-input
-    [text-input :rentabilidade-ind-tx-flut "Rentabilidade do indexador de taxa flutuante" "text"]
-    [text-input :taxa-flutuante "Taxa Flutuante" "double"]
-    [text-input :taxa-juros-spread "Taxa de Juros" "double"]]
+    [text-input :rentabilidade_ind_tx_flut "Rentabilidade do indexador de taxa flutuante" "text"]
+    [text-input :taxa_flutuante "Taxa Flutuante" "double"]
+    [text-input :taxa_juros_spread "Taxa de Juros" "double"]]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/save-form])}
@@ -156,44 +156,63 @@
                         :on-click #(re-frame/dispatch [::events/save-form])}
      "Registrar"]]])
 
+(defn tabela-consulta []
+  (let [dados [["Item 1" 10]
+               ["Item 2" 20]
+               ["Item 3" 15]]]
+    [:table.tabela
+     [:thead
+      [:tr
+       [:th.linha-coluna.coluna "CNPJ"]
+       [:th.linha-coluna.coluna "ID ativo"]
+       [:th.linha-coluna.coluna "Data de inicio"]
+       [:th.linha-coluna.coluna "Data do vencimento"]]]
+     [:tbody
+      (for [item dados]
+        [:tr
+         [:td.linha-coluna.linha (first item)]
+         [:td.linha-coluna.linha (second item)]])]]))
+
 (defn consult-dados [is-valid?]
+  [:div
   [:div.formulario
    [:div.div-titulo
-    [:h1.titulo "Consulta dados"]]
+    [:h1.titulo "Consulta"]]
    [:div.div-input
-    [text-input :cnpj-participante "CNPJ do participante" "text"]
-    [text-input :id-ativo "ID Ativo" "text"]
-    [text-input :data-inicio "Data inicio" "date"]
-    [text-input :data-vencimento "Data vencimento" "date"]]
+    [:button.botao-consulta {:on-click #()} "cdb"]
+    [:button.botao-consulta {:on-click #()}"swap"]
+    [:button.botao-consulta {:on-click #()}"Participante"]]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
-                        :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]])
+                        :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]]
+   (tabela-consulta)
+   ])
 
 (defn main-panel []
   (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
         chave-formulario (case tipo-ativo
-                           "CDB" [:id-participante-cdb
-                                  :conta-cpf-cnpj
-                                  :tipo-regime
-                                  :data-emissao
-                                  :data-vecimento
-                                  :valor-unitario-emissao
-                                  :codigo-isin
-                                  :local-emissao
-                                  :municipio-emissao
-                                  :uf-local-emissao
-                                  :local-pagamento
-                                  :municipio-pagamento
-                                  :uf-local-pagamento
-                                  :cond-resgate-antecipado
+                           "cdb" [:id_participante
+                                  :conta_cpf_cnpj
+                                  :tipo_regime
+                                  :data_emissao
+                                  :data_vencimento
+                                  :valor_unitario_emissao
+                                  :codigo_isin
+                                  :local_emissao
+                                  :municipio_emissao
+                                  :uf_local_emissao
+                                  :local_pagamento
+                                  :municipio_pagamento
+                                  :uf_local_pagamento
+                                  :cond_resgate_antecipado
                                   :vinculado
-                                  :forma-pagamento
+                                  :forma_pagamento
                                   :tipo-cdb
-                                  :multiplas-curvas
-                                  :rentabilidade-ind-tx-flut
-                                  :taxa-flutuante
-                                  :taxa-juros-spread]
-                           "SWAP" [:id-participante-swap
+                                  :multiplas_curvas
+                                  :rentabilidade_ind_tx_flut
+                                  :taxa_flutuante
+                                  :taxa_juros_spread]
+                           "swap" [:id-participante-swap
                                    :tipo-swap
                                    :tipo-pagamento
                                    :cnpj-comprador
@@ -245,10 +264,10 @@
      [:div.div-radio
       [:div.div-menu
        [:h1.titulo-menu "CDB"]
-       [radio-input :tipo "CDB"]]
+       [radio-input :tipo "cdb"]]
       [:div.div-menu
        [:h1.titulo-menu "SWAP"]
-       [radio-input :tipo "SWAP"]]
+       [radio-input :tipo "swap"]]
       [:div.div-menu
        [:h1.titulo-menu "Participante"]
        [radio-input :tipo "Participante"]]
@@ -257,8 +276,8 @@
        [radio-input :tipo "Consulta"]]]
 
      (case tipo-ativo
-       "CDB" (ativo-cdb is-valid?)
-       "SWAP" (ativo-swap is-valid?)
+       "cdb" (ativo-cdb is-valid?)
+       "swap" (ativo-swap is-valid?)
        "Participante" (registro-partipante is-valid?)
        "Consulta" (consult-dados is-valid?)
        [:h1.titulo-mini-registradora "Mini-Registradora"])]))
