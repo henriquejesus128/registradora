@@ -25,4 +25,4 @@
 (re-frame/reg-sub
  ::db-consulta
  (fn [db]
-   (:consulta db)))
+   (get-in db [:consulta :consulta])))

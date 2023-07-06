@@ -25,15 +25,15 @@
  (fn [db]
    (let [form-data (:form db)
          chave (get db :tipo-tela)]
-     (prn (keyword chave) "keyword")
      (-> db
          (assoc-in [:cadastro (keyword chave)] form-data)
          (dissoc :form)))))
 
 (re-frame/reg-event-db
  ::consulta-form
- (fn [db [data-json]]
-   (let [form-data (:form db)
-         update-atributos (conj data-json form-data)]
-     (-> db
-         (assoc :form update-atributos)))))
+  (fn [db]
+    (let [form-data (:form db)
+          chave (get db :tipo-tela)]
+      (-> db
+          (assoc-in [:consulta (keyword chave)] form-data)
+          (dissoc :form)))))
