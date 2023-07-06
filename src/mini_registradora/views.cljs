@@ -227,7 +227,7 @@
                                    :juros-vendedor
                                    :curva-vendedor
                                    :caracteristicas-contrato]
-                           "Participante" [:cnpj-participante
+                           "participante" [:cnpj-participante
                                            :tipo-de-instituicao
                                            :setor-area
                                            :razao-social
@@ -251,7 +251,7 @@
                                            :cep
                                            :uf
                                            :pais]
-                           "Consulta" [:cnpj-consulta]
+                           "consulta" [:cnpj-consulta]
                            nil)
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
@@ -264,16 +264,16 @@
        [radio-input :tipo-tela "swap"]]
       [:div.div-menu
        [:h1.titulo-menu "Participante"]
-       [radio-input :tipo-tela "Participante"]]
+       [radio-input :tipo-tela "participante"]]
       [:div.div-menu
        [:h1.titulo-menu "Consulta"]
-       [radio-input :tipo-tela "Consulta"]]]
+       [radio-input :tipo-tela "consulta"]]]
 
      (prn @(re-frame/subscribe [::subs/db-consulta]))
 
      (case tipo-ativo
        "cdb" (ativo-cdb is-valid?)
        "swap" (ativo-swap is-valid?)
-       "Participante" (registro-partipante is-valid?)
-       "Consulta" (consult-dados is-valid?)
+       "participante" (registro-partipante is-valid?)
+       "consulta" (consult-dados is-valid?)
        [:h1.titulo-mini-registradora "Mini-Registradora"])]))
