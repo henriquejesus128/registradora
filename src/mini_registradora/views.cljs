@@ -128,22 +128,22 @@
     [:h1.titulo "Registro do Participante"]]
     [:div.div-input
      [text-input :cnpj "CNPJ" "text"]
-     [text-input :tipo-de-instituicao "Tipo de Instituição" "text"]
-     [text-input :setor-area "Setor Area" "text"]]
+     [text-input :tipo_de_instituicao "Tipo de Instituição" "text"]
+     [text-input :setor_area "Setor Area" "text"]]
    [:div.div-input
-    [text-input :razao-social "Razão Social" "text"]
-    [text-input :nome-fantasia "Nome fantisia" "text"]
-    [text-input :codigo-agregador "Codigo Agregador" "text"]]
+    [text-input :razao_social "Razão Social" "text"]
+    [text-input :nome_fantasia "Nome fantisia" "text"]
+    [text-input :codigo_agregador "Codigo Agregador" "text"]]
    [:div.div-input
-    [text-input :controle-acionario "Controle acionario" "text"]
-    [text-input :origem-do-capital "Origem do Capital" "text"]
-    [text-input :isencao-inscr-estadual "Isenção inscritura Estadual" "text"]]
+    [text-input :controle_acionario "Controle acionario" "text"]
+    [text-input :origem_do_capital "Origem do Capital" "text"]
+    [text-input :isencao_inscr_estadual "Isenção inscritura Estadual" "text"]]
    [:div.div-input
-    [text-input :num-inscr-estadual "Inscrição Estadual" "text"]
-    [text-input :isencao-inscr-municipal "Isenção inscritura Municipal" "text"]
-    [text-input :num-inscr-municipal "Inscrição Municipal" "text"]]
+    [text-input :num_inscr_estadual "Inscrição Estadual" "text"]
+    [text-input :isencao_inscr_municipal "Isenção inscritura Municipal" "text"]
+    [text-input :num_inscr_municipal "Inscrição Municipal" "text"]]
    [:div.div-input
-    [text-input :grupo-economico "Grupo Economico" "text"]
+    [text-input :grupo_economico "Grupo Economico" "text"]
     [text-input :email "E-mail" "email"]
     [text-input :telefone "Telefone" "tel"]
     [text-input :ramal "Ramal" "number"]]
@@ -244,18 +244,18 @@
                                    :curva_vendedor
                                    :caracteristicas_contrato]
                            "participante" [:cnpj
-                                           :tipo-de-instituicao
-                                           :setor-area
-                                           :razao-social
-                                           :nome-fantasia
-                                           :codigo-agregador
-                                           :controle-acionario
-                                           :origem-do-capital
-                                           :isencao-inscr-estadual
-                                           :num-inscr-estadual
-                                           :isencao-inscr-municipal
-                                           :num-inscr-municipal
-                                           :grupo-economico
+                                           :tipo_de_instituicao
+                                           :setor_area
+                                           :razao_social
+                                           :nome_fantasia
+                                           :codigo_agregador
+                                           :controle_acionario
+                                           :origem_do_capital
+                                           :isencao_inscr_estadual
+                                           :num_inscr_estadual
+                                           :isencao_inscr_municipal
+                                           :num_inscr_municipal
+                                           :grupo_economico
                                            :email
                                            :telefone
                                            :ramal
