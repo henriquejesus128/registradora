@@ -194,7 +194,7 @@
      [radio-input-consulta  :tela-consulta "participante"]]]
    [:div.div-titulo
     [:h1.titulo "Consulta"]]
-   [text-input :cnpj-consulta "CNPJ" "text"]
+   [text-input :cnpj "CNPJ" "text"]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]]
@@ -267,7 +267,7 @@
                                            :cep
                                            :uf
                                            :pais]
-                           "consulta" [:cnpj-consulta]
+                           "consulta" [:cnpj]
                            nil)
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
