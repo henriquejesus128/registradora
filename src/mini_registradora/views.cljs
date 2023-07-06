@@ -163,21 +163,16 @@
      "Registrar"]]])
 
 (defn tabela-consulta []
-  (let [dados [["Item 1" 10]
-               ["Item 2" 20]
-               ["Item 3" 15]]]
+  (let [db-consulta @(re-frame/subscribe [::subs/db-consulta])]
     [:table.tabela
      [:thead
       [:tr
-       [:th.linha-coluna.coluna "CNPJ"]
-       [:th.linha-coluna.coluna "ID ativo"]
-       [:th.linha-coluna.coluna "Data de inicio"]
-       [:th.linha-coluna.coluna "Data do vencimento"]]]
+       (for [x db-consulta]
+         [:th.linha-coluna.coluna {:stylr {:text-align (:alignment x)}}])]]
      [:tbody
-      (for [item dados]
         [:tr
-         [:td.linha-coluna.linha (first item)]
-         [:td.linha-coluna.linha (second item)]])]]))
+         (for [x db-consulta]
+           [:td.linha-coluna.linha {:stylr {:text-align (:alignment x)}}])]]]))
 
 (defn consult-dados [is-valid?]
   [:div
@@ -284,8 +279,6 @@
       [:div.div-menu
        [:h1.titulo-menu "Consulta"]
        [radio-input :tipo-tela "consulta"]]]
-
-     (prn @(re-frame/subscribe [::subs/db-consulta]))
 
      (case tipo-ativo
        "cdb" (ativo-cdb is-valid?)
