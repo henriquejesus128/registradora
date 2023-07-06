@@ -21,6 +21,12 @@
             :checked (= @(re-frame/subscribe [::subs/db-tipo]) valor)
             :on-change #(re-frame/dispatch [::events/update-db id (-> % .-target .-value)]) }])
 
+(defn radio-input-consulta [id valor]
+   [:input {:type "radio"
+            :value valor
+            :checked (= @(re-frame/subscribe [::subs/db-tipo-consulta]) valor)
+            :on-change #(re-frame/dispatch [::events/update-consulta id (-> % .-target .-value)]) }])
+
 (defn radio-input-curvas [id valor1 valor2 texto]
   [:div.div
    [:label.texto texto]
@@ -72,7 +78,7 @@
     [text-input :vinculado "Vinculado" "boolean"]
     [text-input  :forma_pagamento "Forma de pagamento" "text"]]
    [:div.div-input
-    (select-input :tipo-cdb "Tipo" tipo-cdb)
+    (select-input :tipo "Tipo" tipo-cdb)
     (radio-input-curvas :multiplas_curvas "2" "3" "Multiplas Curvas")]
    [:div.div-input
     [text-input :rentabilidade_ind_tx_flut "Rentabilidade do indexador de taxa flutuante" "text"]
@@ -88,29 +94,29 @@
    [:div.div-titulo
     [:h1.titulo "Registro de SWAP"]]
    [:div.div-input
-    [text-input :id-participante-swap "ID Participante" "text"]
-    (select-input :tipo-swap "Tipo" tipo-swap)
-    [text-input :tipo-pagamento "Tipo pagamento" "text"]]
+    [text-input :id_participante "ID Participante" "text"]
+    (select-input :tipo "Tipo" tipo-swap)
+    [text-input :tipo_pagamento "Tipo pagamento" "text"]]
    [:div.div-input
-    [text-input :cnpj-comprador "CNPJ comprador" "text"]
-    [text-input :cnpj-vendedor "CNPJ vendedor" "text"]
-    [text-input :data-inicio "Data Inicio" "date"]
-    [text-input :data-vencimento "Data de Vencimento" "date"]]
+    [text-input :cnpj_comprador "CNPJ comprador" "text"]
+    [text-input :cnpj_vendedor "CNPJ vendedor" "text"]
+    [text-input :data_inicio "Data Inicio" "date"]
+    [text-input :data_vencimento "Data de Vencimento" "date"]]
    [:div.div-input
-    [text-input :valor-base "Valor base" "double"]
-    [text-input :adesao-contrato "Adesao contrato" "text"]]
+    [text-input :valor_base "Valor base" "double"]
+    [text-input :adesao_contrato "Adesao contrato" "text"]]
    [:div.div-input
-    [text-input :percentual-comprador "Percentual comprador" "double"]
-    [text-input :categoria-comprador "Categoria comprador" "text"]
-    [text-input :juros-comprador "Juros comprador" "double"]
-    [text-input :curva-comprador "Curva comprador" "text"]]
+    [text-input :percentual_comprador "Percentual comprador" "double"]
+    [text-input :categoria_comprador "Categoria comprador" "text"]
+    [text-input :juros_comprador "Juros comprador" "double"]
+    [text-input :curva_comprador "Curva comprador" "text"]]
    [:div.div-input
-    [text-input :percentual-vendedor "Percentual vendedor" "double"]
-    [text-input :categoria-vendedor "Categoria vendedor" "text"]
-    [text-input :juros-vendedor "Juros vendedor" "double"]
-    [text-input :curva-vendedor "Curva vendedor" "text"]]
+    [text-input :percentual_vendedor "Percentual vendedor" "double"]
+    [text-input :categoria_vendedor "Categoria vendedor" "text"]
+    [text-input :juros_vendedor "Juros vendedor" "double"]
+    [text-input :curva_vendedor "Curva vendedor" "text"]]
    [:div.div-input
-    [text-input :caracteristicas-contrato "Caracteristicas do contrato" "text"]]
+    [text-input :caracteristicas_contrato "Caracteristicas do contrato" "text"]]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/save-form])}
@@ -121,7 +127,7 @@
    [:div.div-titulo
     [:h1.titulo "Registro do Participante"]]
     [:div.div-input
-     [text-input :cnpj-participante "CNPJ" "text"]
+     [text-input :cnpj "CNPJ" "text"]
      [text-input :tipo-de-instituicao "Tipo de Instituição" "text"]
      [text-input :setor-area "Setor Area" "text"]]
    [:div.div-input
@@ -176,6 +182,16 @@
 (defn consult-dados [is-valid?]
   [:div
   [:div.formulario
+   [:div.div-radio
+    [:div.div-menu
+     [:h1.titulo-menu "CDB"]
+     [radio-input-consulta  :tela-consulta "cdb"]]
+    [:div.div-menu
+     [:h1.titulo-menu "SWAP"]
+     [radio-input-consulta  :tela-consulta "swap"]]
+    [:div.div-menu
+     [:h1.titulo-menu "Participante"]
+     [radio-input-consulta  :tela-consulta "participante"]]]
    [:div.div-titulo
     [:h1.titulo "Consulta"]]
    [text-input :cnpj-consulta "CNPJ" "text"]
@@ -204,30 +220,30 @@
                                   :cond_resgate_antecipado
                                   :vinculado
                                   :forma_pagamento
-                                  :tipo-cdb
+                                  :tipo
                                   :multiplas_curvas
                                   :rentabilidade_ind_tx_flut
                                   :taxa_flutuante
                                   :taxa_juros_spread]
-                           "swap" [:id-participante-swap
-                                   :tipo-swap
-                                   :tipo-pagamento
-                                   :cnpj-comprador
-                                   :cnpj-vendedor
-                                   :data-inicio
-                                   :data-vencimento
-                                   :valor-base
-                                   :adesao-contrato
-                                   :percentual-comprador
-                                   :categoria-comprador
-                                   :juros-comprador
-                                   :curva-comprador
-                                   :percentual-vendedor
-                                   :categoria-vendedor
-                                   :juros-vendedor
-                                   :curva-vendedor
-                                   :caracteristicas-contrato]
-                           "participante" [:cnpj-participante
+                           "swap" [:id_participante
+                                   :tipo
+                                   :tipo_pagamento
+                                   :cnpj_comprador
+                                   :cnpj_vendedor
+                                   :data_inicio
+                                   :data_vencimento
+                                   :valor_base
+                                   :adesao_contrato
+                                   :percentual_comprador
+                                   :categoria_comprador
+                                   :juros_comprador
+                                   :curva_comprador
+                                   :percentual_vendedor
+                                   :categoria_vendedor
+                                   :juros_vendedor
+                                   :curva_vendedor
+                                   :caracteristicas_contrato]
+                           "participante" [:cnpj
                                            :tipo-de-instituicao
                                            :setor-area
                                            :razao-social

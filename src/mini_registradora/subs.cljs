@@ -23,6 +23,11 @@
    (:tipo-tela db)))
 
 (re-frame/reg-sub
+ ::db-tipo-consulta
+ (fn [db]
+   (:tela-consulta db)))
+
+(re-frame/reg-sub
  ::db-consulta
  (fn [db]
    (get-in db [:consulta :consulta])))

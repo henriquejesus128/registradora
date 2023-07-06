@@ -33,7 +33,12 @@
  ::consulta-form
   (fn [db]
     (let [form-data (:form db)
-          chave (get db :tipo-tela)]
+          chave (get db :tela-consulta)]
       (-> db
           (assoc-in [:consulta (keyword chave)] form-data)
           (dissoc :form)))))
+
+(re-frame/reg-event-db
+ ::update-consulta
+ (fn [db [_ id val]]
+   (assoc (dissoc db :form)  id val)))
