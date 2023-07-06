@@ -178,10 +178,7 @@
   [:div.formulario
    [:div.div-titulo
     [:h1.titulo "Consulta"]]
-   [:div.div-input
-    [:button.botao-consulta {:on-click #()} "cdb"]
-    [:button.botao-consulta {:on-click #()}"swap"]
-    [:button.botao-consulta {:on-click #()}"Participante"]]
+   [text-input :cnpj-consulta "CNPJ" "text"]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]]]
@@ -254,10 +251,7 @@
                                            :cep
                                            :uf
                                            :pais]
-                           "Consulta" [:cnpj-participante
-                                       :id-ativo
-                                       :data-inicio
-                                       :data-vencimento]
+                           "Consulta" [:cnpj-consulta]
                            nil)
         is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
     [:div
@@ -274,6 +268,8 @@
       [:div.div-menu
        [:h1.titulo-menu "Consulta"]
        [radio-input :tipo-tela "Consulta"]]]
+
+     (prn @(re-frame/subscribe [::subs/db-consulta]))
 
      (case tipo-ativo
        "cdb" (ativo-cdb is-valid?)
