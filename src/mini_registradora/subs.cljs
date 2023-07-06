@@ -20,7 +20,7 @@
 (re-frame/reg-sub
  ::db-tipo
  (fn [db]
-   (:tipo db)))
+   (:tipo-tela db)))
 
 (re-frame/reg-sub
  ::db-consulta

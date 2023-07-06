@@ -264,16 +264,16 @@
      [:div.div-radio
       [:div.div-menu
        [:h1.titulo-menu "CDB"]
-       [radio-input :tipo "cdb"]]
+       [radio-input :tipo-tela "cdb"]]
       [:div.div-menu
        [:h1.titulo-menu "SWAP"]
-       [radio-input :tipo "swap"]]
+       [radio-input :tipo-tela "swap"]]
       [:div.div-menu
        [:h1.titulo-menu "Participante"]
-       [radio-input :tipo "Participante"]]
+       [radio-input :tipo-tela "Participante"]]
       [:div.div-menu
        [:h1.titulo-menu "Consulta"]
-       [radio-input :tipo "Consulta"]]]
+       [radio-input :tipo-tela "Consulta"]]]
 
      (case tipo-ativo
        "cdb" (ativo-cdb is-valid?)

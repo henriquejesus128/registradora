@@ -24,7 +24,7 @@
  ::save-form
  (fn [db]
    (let [form-data (:form db)
-         chave (get db :tipo)]
+         chave (get db :tipo-tela)]
      (prn (keyword chave) "keyword")
      (-> db
          (assoc-in [:cadastro (keyword chave)] form-data)
