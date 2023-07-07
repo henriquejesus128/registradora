@@ -177,8 +177,21 @@
 (defn consulta-participante [is-valid?]
   [:div.test
    [:div.div-titulo
-    [:h1.titulo "Consulta participante"]]
+    [:h1.titulo "Consulta Participante"]]
    [text-input :cnpj "CNPJ" "text"]
+   [:div.div-botao
+    [:button.registrar {:disabled (not is-valid?)
+                        :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]
+    (tabela-consulta)]])
+
+(defn consulta-swap [is-valid?]
+  [:div.test
+   [:div.div-titulo
+    [:h1.titulo "Consulta Swap"]]
+   [text-input :id-participante "ID participante" "text"]
+   [text-input :data-inicio "Data inicio" "date"]
+   [text-input :data-vencimento "Data vencimento" "date"]
+   [text-input :id-ativo"ID Ativo" "text"]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]
@@ -198,10 +211,15 @@
          [:div.div-menu
           [:h1.titulo-menu "Participante"]
           [radio-input-consulta  :tela-consulta "participante"]]]
-        (case tipo-ativo "participante" (consulta-participante is-valid?) [:h1 "Errou"])]]))
+        (case tipo-ativo
+          "participante" (consulta-participante is-valid?)
+          "swap" (consulta-swap is-valid?)
+          [:h1 "Errou"])]]))
 
   (defn main-panel []
     (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
+          tipo-consulta @(re-frame/subscribe [::subs/db-tipo-consulta])
+          chave-consulta (case tipo-consulta "participante" [:cnpj] nil)
           chave-formulario (case tipo-ativo
                              "cdb" [:id_participante
                                     :conta_cpf_cnpj
@@ -266,9 +284,9 @@
                                              :cep
                                              :uf
                                              :pais]
-                             "consulta" [:cnpj]
                              nil)
-          is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])]
+          is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])
+          is-valid-consulta? @(re-frame/subscribe [::subs/form-is-valid? chave-consulta])]
       [:div
        [:div.div-radio
         [:div.div-menu
@@ -288,5 +306,5 @@
          "cdb" (ativo-cdb is-valid?)
          "swap" (ativo-swap is-valid?)
          "participante" (registro-partipante is-valid?)
-         "consulta" (consult-dados is-valid?)
+         "consulta" (consult-dados is-valid-consulta?)
          [:h1.titulo-mini-registradora "Mini-Registradora"])]))
