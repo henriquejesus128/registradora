@@ -188,123 +188,145 @@
   [:div.test
    [:div.div-titulo
     [:h1.titulo "Consulta Swap"]]
-   [text-input :id-participante "ID participante" "text"]
-   [text-input :data-inicio "Data inicio" "date"]
-   [text-input :data-vencimento "Data vencimento" "date"]
-   [text-input :id-ativo"ID Ativo" "text"]
+   [text-input :id_participante "ID participante" "text"]
+   [text-input :data_inicio "Data inicio" "date"]
+   [text-input :data_vencimento "Data vencimento" "date"]
+   [text-input :id_ativo "ID Ativo" "text"]
    [:div.div-botao
     [:button.registrar {:disabled (not is-valid?)
                         :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]
     (tabela-consulta)]])
 
-  (defn consult-dados [is-valid?]
-    (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo-consulta])]
-      [:div
-       [:div.formulario
-        [:div.div-radio
-         [:div.div-menu
-          [:h1.titulo-menu "CDB"]
-          [radio-input-consulta  :tela-consulta "cdb"]]
-         [:div.div-menu
-          [:h1.titulo-menu "SWAP"]
-          [radio-input-consulta  :tela-consulta "swap"]]
-         [:div.div-menu
-          [:h1.titulo-menu "Participante"]
-          [radio-input-consulta  :tela-consulta "participante"]]]
-        (case tipo-ativo
-          "participante" (consulta-participante is-valid?)
-          "swap" (consulta-swap is-valid?)
-          [:h1 "Errou"])]]))
+(defn consulta-cdb [is-valid?]
+  [:div.test
+   [:div.div-titulo
+    [:h1.titulo "Consulta CDB"]]
+   [text-input :id_participante "ID participante" "text"]
+   [text-input :data_emissao "Data Emisão" "date"]
+   [text-input :id_ativo "ID Ativo" "text"]
+   [:div.div-botao
+    [:button.registrar {:disabled (not is-valid?)
+                        :on-click #(re-frame/dispatch [::events/consulta-form])} "Consultar"]
+    (tabela-consulta)]])
 
-  (defn main-panel []
-    (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
-          tipo-consulta @(re-frame/subscribe [::subs/db-tipo-consulta])
-          chave-consulta (case tipo-consulta "participante" [:cnpj] nil)
-          chave-formulario (case tipo-ativo
-                             "cdb" [:id_participante
-                                    :conta_cpf_cnpj
-                                    :tipo_regime
-                                    :data_emissao
-                                    :data_vencimento
-                                    :valor_unitario_emissao
-                                    :codigo_isin
-                                    :local_emissao
-                                    :municipio_emissao
-                                    :uf_local_emissao
-                                    :local_pagamento
-                                    :municipio_pagamento
-                                    :uf_local_pagamento
-                                    :cond_resgate_antecipado
-                                    :vinculado
-                                    :forma_pagamento
-                                    :tipo
-                                    :multiplas_curvas
-                                    :rentabilidade_ind_tx_flut
-                                    :taxa_flutuante
-                                    :taxa_juros_spread]
-                             "swap" [:id_participante
-                                     :tipo
-                                     :tipo_pagamento
-                                     :cnpj_comprador
-                                     :cnpj_vendedor
-                                     :data_inicio
-                                     :data_vencimento
-                                     :valor_base
-                                     :adesao_contrato
-                                     :percentual_comprador
-                                     :categoria_comprador
-                                     :juros_comprador
-                                     :curva_comprador
-                                     :percentual_vendedor
-                                     :categoria_vendedor
-                                     :juros_vendedor
-                                     :curva_vendedor
-                                     :caracteristicas_contrato]
-                             "participante" [:cnpj
-                                             :tipo_de_instituicao
-                                             :setor_area
-                                             :razao_social
-                                             :nome_fantasia
-                                             :codigo_agregador
-                                             :controle_acionario
-                                             :origem_do_capital
-                                             :isencao_inscr_estadual
-                                             :num_inscr_estadual
-                                             :isencao_inscr_municipal
-                                             :num_inscr_municipal
-                                             :grupo_economico
-                                             :email
-                                             :telefone
-                                             :ramal
-                                             :logradouro
-                                             :numero
-                                             :complemento
-                                             :bairro
-                                             :municipio
-                                             :cep
-                                             :uf
-                                             :pais]
-                             nil)
-          is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])
-          is-valid-consulta? @(re-frame/subscribe [::subs/form-is-valid? chave-consulta])]
-      [:div
-       [:div.div-radio
-        [:div.div-menu
-         [:h1.titulo-menu "CDB"]
-         [radio-input :tipo-tela "cdb"]]
-        [:div.div-menu
-         [:h1.titulo-menu "SWAP"]
-         [radio-input :tipo-tela "swap"]]
-        [:div.div-menu
-         [:h1.titulo-menu "Participante"]
-         [radio-input :tipo-tela "participante"]]
-        [:div.div-menu
-         [:h1.titulo-menu "Consulta"]
-         [radio-input :tipo-tela "consulta"]]]
+(defn consult-dados [is-valid?]
+  (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo-consulta])]
+    [:div
+     [:div.formulario
+      [:div.div-radio
+       [:div.div-menu
+        [:h1.titulo-menu "CDB"]
+        [radio-input-consulta  :tela-consulta "cdb"]]
+       [:div.div-menu
+        [:h1.titulo-menu "SWAP"]
+        [radio-input-consulta  :tela-consulta "swap"]]
+       [:div.div-menu
+        [:h1.titulo-menu "Participante"]
+        [radio-input-consulta  :tela-consulta "participante"]]]
+      (case tipo-ativo
+        "participante" (consulta-participante is-valid?)
+        "swap" (consulta-swap is-valid?)
+        "cdb" (consulta-cdb is-valid?)
+        nil)]]))
 
-       (case tipo-ativo
-         "cdb" (ativo-cdb is-valid?)
-         "swap" (ativo-swap is-valid?)
-         "participante" (registro-partipante is-valid?)
-         "consulta" (consult-dados is-valid-consulta?)
-         [:h1.titulo-mini-registradora "Mini-Registradora"])]))
+(defn main-panel []
+  (let [tipo-ativo @(re-frame/subscribe [::subs/db-tipo])
+        tipo-consulta @(re-frame/subscribe [::subs/db-tipo-consulta])
+        chave-consulta (case tipo-consulta
+                         "participante" [:cnpj]
+                         "swap" [:id_participante
+                                 :data_inicio
+                                 :data_vencimento
+                                 :id_ativo]
+                         "cdb" [:id_participante
+                                :data_emissao
+                                :id_ativo]
+                         nil)
+        chave-formulario (case tipo-ativo
+                           "cdb" [:id_participante
+                                  :conta_cpf_cnpj
+                                  :tipo_regime
+                                  :data_emissao
+                                  :data_vencimento
+                                  :valor_unitario_emissao
+                                  :codigo_isin
+                                  :local_emissao
+                                  :municipio_emissao
+                                  :uf_local_emissao
+                                  :local_pagamento
+                                  :municipio_pagamento
+                                  :uf_local_pagamento
+                                  :cond_resgate_antecipado
+                                  :vinculado
+                                  :forma_pagamento
+                                  :tipo
+                                  :multiplas_curvas
+                                  :rentabilidade_ind_tx_flut
+                                  :taxa_flutuante
+                                  :taxa_juros_spread]
+                           "swap" [:id_participante
+                                   :tipo
+                                   :tipo_pagamento
+                                   :cnpj_comprador
+                                   :cnpj_vendedor
+                                   :data_inicio
+                                   :data_vencimento
+                                   :valor_base
+                                   :adesao_contrato
+                                   :percentual_comprador
+                                   :categoria_comprador
+                                   :juros_comprador
+                                   :curva_comprador
+                                   :percentual_vendedor
+                                   :categoria_vendedor
+                                   :juros_vendedor
+                                   :curva_vendedor
+                                   :caracteristicas_contrato]
+                           "participante" [:cnpj
+                                           :tipo_de_instituicao
+                                           :setor_area
+                                           :razao_social
+                                           :nome_fantasia
+                                           :codigo_agregador
+                                           :controle_acionario
+                                           :origem_do_capital
+                                           :isencao_inscr_estadual
+                                           :num_inscr_estadual
+                                           :isencao_inscr_municipal
+                                           :num_inscr_municipal
+                                           :grupo_economico
+                                           :email
+                                           :telefone
+                                           :ramal
+                                           :logradouro
+                                           :numero
+                                           :complemento
+                                           :bairro
+                                           :municipio
+                                           :cep
+                                           :uf
+                                           :pais]
+                           nil)
+        is-valid? @(re-frame/subscribe [::subs/form-is-valid? chave-formulario])
+        is-valid-consulta? @(re-frame/subscribe [::subs/form-is-valid? chave-consulta])]
+    [:div
+     [:div.div-radio
+      [:div.div-menu
+       [:h1.titulo-menu "CDB"]
+       [radio-input :tipo-tela "cdb"]]
+      [:div.div-menu
+       [:h1.titulo-menu "SWAP"]
+       [radio-input :tipo-tela "swap"]]
+      [:div.div-menu
+       [:h1.titulo-menu "Participante"]
+       [radio-input :tipo-tela "participante"]]
+      [:div.div-menu
+       [:h1.titulo-menu "Consulta"]
+       [radio-input :tipo-tela "consulta"]]]
+
+     (case tipo-ativo
+       "cdb" (ativo-cdb is-valid?)
+       "swap" (ativo-swap is-valid?)
+       "participante" (registro-partipante is-valid?)
+       "consulta" (consult-dados is-valid-consulta?)
+       [:h1.titulo-mini-registradora "Mini-Registradora"])]))
